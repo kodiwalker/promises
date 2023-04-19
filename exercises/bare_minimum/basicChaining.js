@@ -10,11 +10,44 @@
 
 var fs = require('fs');
 var Promise = require('bluebird');
+var readFileAsync = Promise.promisify(fs.readFile);
+var request = require('needle');
+// var getAsync = Promise.promisify(request.get);
 
+var getAsyncGet = (url, writeFilePath) => {
+  var hitGitAPI = (url) => {
+    return new Promise((resolve, reject) => {
+      request.get()
+    });
+  };
 
+};
 
-var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
+var fetchProfileAndWriteToFile = function (readFilePath, writeFilePath) {
   // TODO
+  readFileAsync(readFilePath)
+    .then((result) => {
+      var firstLine = result.toString().split('\n')[0];
+      // console.log(firstLine);
+      return firstLine;
+    })
+    .then(username => {
+      return getAsync(`https://www.github.com/users/${username}`, (err, res) => {
+        console.log(JSON.stringify(res));
+      });
+    });
+
+
+
+
+  // return pluckFirstLineFromFileAsync(readFilePath)
+  //   .then(getGitHubProfileAsync)
+  //   .then(function(profile) {
+  //     return writeFileAsync(writeFilePath, JSON.stringify(profile));
+  //   });
+
+
+
 };
 
 // Export these functions so we can test them

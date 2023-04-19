@@ -54,12 +54,12 @@ var readFileAndMakeItFunny = function (filePath, callback) {
       })
       .join('\n');
 
-    callback(funnyFile);
+    callback(err, funnyFile);
   });
 };
 
 var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny);
-readFileAndMakeItFunnyAsync.then();
+// readFileAndMakeItFunnyAsync.then();
 // Export these functions so we can test them and reuse them in later exercises
 module.exports = {
   getGitHubProfileAsync: getGitHubProfileAsync,
